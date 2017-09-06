@@ -1,0 +1,25 @@
+{
+  "name": "mediumbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graysonhicks/medium-backend.git"
+  },
+  "author": "grayson hicks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/graysonhicks/medium-backend/issues"
+  },
+  "homepage": "https://github.com/graysonhicks/medium-backend#readme"
+}
