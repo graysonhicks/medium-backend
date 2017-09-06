@@ -1,28 +1,15 @@
-var medium = require('medium-sdk')
 
-var client = new medium.MediumClient({
-  clientId: 'YOUR_CLIENT_ID',
-  clientSecret: 'YOUR_CLIENT_SECRET'
+var express = require('express');
+var request = require('request');
+var app = express()
+
+app.get('/', function (req, res) {
+  // hit AWS API gateway to trigger AWS lambda function that parses JSON
+  request('https://rqq0gavu79.execute-api.us-west-2.amazonaws.com/Active/medium', function (error, response, body) { // api url
+    if (!error && response.statusCode === 200) {
+      res.send(body); // if no errors, send the body of data back to front end
+    }
+   });
 })
 
-var redirectURL = 'http://graysonhicks.com/';
-
-var url = client.getAuthorizationUrl('secretState', redirectURL, [
-  medium.Scope.BASIC_PROFILE, medium.Scope.PUBLISH_POST
-])
-
-// (Send the user to the authorization URL to obtain an authorization code.)
-
-client.exchangeAuthorizationCode('YOUR_AUTHORIZATION_CODE', redirectURL, function (err, token) {
-  client.getUser(function (err, user) {
-    client.createPost({
-      userId: user.id,
-      title: 'A new post',
-      contentFormat: medium.PostContentFormat.HTML,
-      content: '<h1>A New Post</h1><p>This is my new post.</p>',
-      publishStatus: medium.PostPublishStatus.DRAFT
-    }, function (err, post) {
-      console.log(token, user, post)
-    })
-  })
-})
+app.listen(3000)
