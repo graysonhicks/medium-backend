@@ -1,7 +1,10 @@
 
 var express = require('express');
 var request = require('request');
-var app = express()
+var app = express();
+var cors = require('cors');
+
+app.use(cors()); //allows overriding cross origin policy (use npm install if needed)
 
 app.get('/', function (req, res) {
   // hit AWS API gateway to trigger AWS lambda function that parses JSON
@@ -10,6 +13,6 @@ app.get('/', function (req, res) {
       res.send(body); // if no errors, send the body of data back to front end
     }
    });
-})
+});
 
-app.listen(3000)
+app.listen(3000);
