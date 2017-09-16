@@ -8,18 +8,19 @@ app.use(cors()); //allows overriding cross origin policy (use npm install if nee
 
 app.get('/', function (req, res) {
   var username = 'graysonhicks'
+  var jsonBody;
 	var url = "https://medium.com/@"+username+"/latest?format=json";
   // hit AWS API gateway to trigger AWS lambda function that parses JSON
   request({url: url, json: true}, function (error, response, body) { // api url
     if (!error && response.statusCode === 200) {
       	// We need to pull out the text that comes thru from Medium for JSON hacking
-    		jsonBody = JSON.parse(body.replace('])}while(1);</x>', ''));
-      body = JSON.parse(body);
-      res.send(body); // if no errors, send the body of data back to front end
+    	jsonBody = JSON.parse(body.replace('])}while(1);</x>', ''));
+
+      res.send(jsonBody); // if no errors, send the body of data back to front end
     }
    });
 });
-// 
+//
 // var request = require("request"); // Include the request lib - run npm install request
 // exports.handler = function(event, context, callback) {
 // 	callback = context.done;
